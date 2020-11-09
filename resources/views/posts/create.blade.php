@@ -2,26 +2,46 @@
 
 @section('content')
 <div class="container">
-   <div class="row">
-       <div class="col-9 pt-5">
-           <div class="d-inline-flex justify-content-between">
-               <h1>{{ $user->username }}</h1>
-               <a href="#">Add new post</a>
-           </div>
-           <div class="d-flex">
-               <div class="pr-5"><strong>153</strong> posts</div>
-               <div class="pr-5"><strong>23k</strong> followers</div>
-               <div class="pr-5"><strong>212</strong> following</div>
-           </div>
-           <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
-           <div>{{ $user->profile->description }}</div>
-           <div><a href="#">{{ $user->profile->url }}</a></div>
-       </div>
-   </div>
-    <div class="row pt-4">
-        <div class="col-4">
+    <form action="/p" enctype="multipart/form-data" method="post">
+        @csrf
+        <legend>Add new post</legend>
+        <div class="row">
+            <div class="col-8 offset-2">
+                <div class="form-group row">
+                    <label for="caption" class="col-md-4 col-form-label">Post Caption</label>
 
+                    <div class="col-md-6">
+                        <input
+                            id="caption"
+                            type="text"
+                            class="form-control @error('caption') is-invalid @enderror"
+                            name="caption"
+                            value="{{ old('caption') }}"
+                            required
+                            autofocus
+                        >
+
+                        @error('caption')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" required>
+                    <label for="image" class="col-md-4 col-form-label">Post Image</label>
+                    @error('image')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary pt-4">Add new post</button>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 @endsection
