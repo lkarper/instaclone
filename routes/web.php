@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\ProfilesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +20,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/home', fn() => view('home'));
+Route::get('/p/create', [PostsController::class, 'create']);
+Route::post('/p', [PostsController::class, 'store']);
 
-Route::get('/p/create', [App\Http\Controllers\PostsController::class, 'create']);
-Route::post('/p', [App\Http\Controllers\PostsController::class, 'store']);
-
-Route::get('/profiles/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
+Route::get('/profiles/{user}', [ProfilesController::class, 'index'])->name('profile.show');
