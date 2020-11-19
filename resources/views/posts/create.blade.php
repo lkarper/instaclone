@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <form action="/p" enctype="multipart/form-data" method="post">
-        @csrf
+        {{-- Adds an authentication token to form --}}
+        @csrf  
         <div class="row">
             <div class="col-8 offset-2">
                 <div class="row">
@@ -42,7 +43,7 @@
                     @error('image')
                     <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
-                        </span>
+                    </span>
                     @enderror
                 </div>
                 <div class="row pt-4">
