@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $guarded = [];
+    protected $guarded = []; // Tells Laravel that everything is already validated, no need to protect
+    protected $fillable = [
+        'caption',
+        'image',
+        'user_id',
+        'title',
+    ];
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
