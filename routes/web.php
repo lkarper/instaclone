@@ -24,5 +24,8 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/p/create', [PostsController::class, 'create']);
 Route::post('/p', [PostsController::class, 'store']);
+Route::get('/p/{post}', [PostsController::class, 'show']);
 
 Route::get('/profiles/{user}', [ProfilesController::class, 'index'])->name('profile.show');
+Route::get('/profiles/{user}/edit', [ProfilesController::class, 'edit'])->name('profile.edit');
+Route::patch('/profiles/{user}', [ProfilesController::class, 'update'])->name('profile.update');
