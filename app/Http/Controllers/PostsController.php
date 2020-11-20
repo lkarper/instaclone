@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
@@ -30,6 +31,11 @@ class PostsController extends Controller
         $imagePath = request('image')->store('uploads', 'public'); // store(directory, driver)
         // Run php artisan storage:link to create link to storage/app/public/uploads
         
+        // Fit image using external library Intervention
+        $image = Image::make(public_path("storage/{$imagePath}"))
+            ->fit(1200, 1200)
+            ->save();
+
         // Gets the authenticated user to create a post with their id
         Post::create([
             'caption' => $data['caption'],
@@ -38,6 +44,14 @@ class PostsController extends Controller
             'title' => '',
         ]);
 
-        return redirect('/profile/' . request()->user()->id);
+        return redirect('/profiles/' . request()->user()->id);
+    }
+
+    // Use route-model binding to return found post
+    public function show(\App\Models\Post $post) {
+        return view('posts/show', compact('post')); 
+
+        // compact(var1, var2, ...) function returns an array of key value pairs following 
+        // the pattern ['var1' => $var1, 'var2', => $var2]
     }
 }
