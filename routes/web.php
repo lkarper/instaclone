@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FollowsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/p/create', [PostsController::class, 'create']);
 Route::post('/p', [PostsController::class, 'store']);
 Route::get('/p/{post}', [PostsController::class, 'show']);
+Route::post('/follow/{user}', [FollowsController::class, 'store']);
 
 Route::get('/profiles/{user}', [ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profiles/{user}/edit', [ProfilesController::class, 'edit'])->name('profile.edit');

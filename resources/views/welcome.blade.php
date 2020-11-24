@@ -36,6 +36,9 @@
                 </div>
             @endif
             <h1>Welcome to Instaclone</h1>
+            <div id="example"></div>
         </div>
     </body>
+
+<script type="text/javascript" src="../js/app.js"></script>
 </html>
