@@ -17,6 +17,13 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
+    public function index() {
+        $users = auth()->user()->following->pluck('user_id'); // pluck() returns a single column
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(1); 
+        // latest() = orderBy('created_at', 'DESC'); paginate gives you a number of pages
+        return view('posts/index', compact('posts'));
+    }
+
     public function create() {
         return view('posts/create');
     }

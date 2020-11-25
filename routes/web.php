@@ -5,6 +5,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FollowsController;
+use App\Mail\NewUserWelcomeMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,13 @@ use App\Http\Controllers\FollowsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/email', function() {
+    return new NewUserWelcomeMail();
 });
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [PostsController::class, 'index']);
 Route::get('/p/create', [PostsController::class, 'create']);
 Route::post('/p', [PostsController::class, 'store']);
 Route::get('/p/{post}', [PostsController::class, 'show']);
